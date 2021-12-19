@@ -34,3 +34,12 @@ Wireframes:
 ERD:
 
 ![ER Diagram](https://github.com/AbdulhakimAloudah/User-Stories/blob/main/img/Untitled%20Diagram.drawio%20(3).png)
+
+
+
+---
+UML Diagram:
+
+![ER Diagram](https://github.com/AbdulhakimAloudah/User-Stories/blob/main/img/Untitled%20Diagram.drawio%20(4).png)
+
+
