@@ -1,5 +1,5 @@
-# trello
-https://trello.com/b/qhLIrfnX/mp-project-abdulhakim
+# Description
+Creating Community WebSite of chefs and users, 
 
 
 ---
@@ -11,7 +11,7 @@ https://trello.com/b/qhLIrfnX/mp-project-abdulhakim
 - admin [ Delete post - delete video - delete user - delete comment ]
 
 - Chef [add post - add video - add comment - delete post - delete video ]
--
+
 - user
 - [Watch posts - Watch videos]
 - The user can Check the cooking posts and click on the post to start cooking.
@@ -19,6 +19,11 @@ https://trello.com/b/qhLIrfnX/mp-project-abdulhakim
 - add to favorite
 - add comment 
 - Follow the chefs
+---
+#### server side url https://github.com/MP-Project-Abdulhakim/client
+#### presentation slides http://www.abdulhakim.com
+#### project deployed there http://heroku.abdulhakim.com
+#### Trello link https://trello.com/b/qhLIrfnX/mp-project-abdulhakim
 
 ---
 ###
