@@ -92,14 +92,6 @@ DELETE        | admin + user  |`/posts/delete/:_id`                | | ok 200 , 
 | pos    | Schema <posts>   | required | n/a           |
 | isDeleted    | boolean   | required | n/a           |
 
-- room model
-
-| key         | type            | options  | default value |
-| ----------- | --------------- | -------- | ------------- |
-| to          | Schema <user>   | required | n/a           |
-| from        | Schema <user>   | required | n/a           |
-| description | String          | required | n/a           |
-
 - like model
 
 | key         | type            | options  | default value |
