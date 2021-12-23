@@ -19,6 +19,9 @@ app.use(express.json());
 const userSchema = require("./routers/routs/user");
 app.use(userSchema);
 
+const postRouter = require("./routers/routs/posts");
+app.use(postRouter);
+
 
 
 
