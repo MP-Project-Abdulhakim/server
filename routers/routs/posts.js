@@ -4,6 +4,7 @@ const {
   getUserPosts,
   updatePost,
   deletePost,
+  getPosts,
 } = require("./../controllers/posts");
 
 
@@ -12,6 +13,7 @@ postRouter.post("/addPost", createPost);
 postRouter.get("/getUserPosts/:id", getUserPosts);
 postRouter.put("/updatePost/:id", updatePost);
 postRouter.delete("/deletePost/:id", deletePost);
+postRouter.get("/getPosts", getPosts);
 
 
 
