@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 
-
 const postSchema = new mongoose.Schema({
- 
   video: {
     type: String,
   },
@@ -15,7 +13,7 @@ const postSchema = new mongoose.Schema({
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: "User",
     required: true,
   },
 
@@ -25,6 +23,6 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-const postModel = mongoose.model("post", postSchema);
+const postModel = mongoose.model("Post", postSchema);
 
 module.exports = postModel;
