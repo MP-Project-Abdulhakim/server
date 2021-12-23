@@ -10,10 +10,14 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/", (req,res) => {
-    res.json("hi from my p")
-})
 
+
+
+
+
+
+const userSchema = require("./routers/routs/user");
+app.use(userSchema);
 
 
 
