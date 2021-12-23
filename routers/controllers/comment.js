@@ -57,7 +57,7 @@ const deleteComment = (req, res) => {
 
 
    
-//    getPostComment,
+
    module.exports = {
      createComment,
      updateComment,
