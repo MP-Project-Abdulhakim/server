@@ -29,5 +29,39 @@ const signUp = async (req, res) => {
 
 
 
+const logIn = (req, res) => {
+  const { username, email, password } = req.body;
+  const saveEmail = email.toLowerCase();
 
-module.exports = { signUp };
+  userModel
+    .findOne({ email: saveEmail })
+    .then(async (result) => {
+      if (result) {
+        if (saveEmail == result.email || username === result.username) {
+          const savePass = (password, result.password);
+
+          if (savePass) {
+            const payload = {
+              userId: result._id,
+            };
+            const token = (payload);
+            res.status(200).json({ result });
+          } else {
+            res.status(400).json("invalid email or password");
+          }
+        } else {
+          res.status(400).json("invalid email or password");
+        }
+      } else {
+        res.status(404).json("not found");
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
+
+
+
+module.exports = { signUp, logIn };
