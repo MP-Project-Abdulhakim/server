@@ -23,6 +23,19 @@ const createPost = (req, res) => {
 };
 
 
+const getPosts = (req, res) => {
+  postModel
+    .find({ deleted: false, user: req.id })
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
+
+
 //not completed
 const getUserPosts = (req, res) => {
   postModel
@@ -69,6 +82,6 @@ const deletePost = (req, res) => {
 
 
 // getPosts, getPostById
-module.exports = { createPost, getUserPosts, updatePost, deletePost };
+module.exports = { createPost, getUserPosts, updatePost, deletePost, getPosts };
 
 
