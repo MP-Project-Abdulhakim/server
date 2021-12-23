@@ -25,7 +25,8 @@ app.use(postRouter);
 const commentRouter = require("./routers/routs/comment");
 app.use(commentRouter);
 
-
+const likesRouter = require("./routers/routs/like");
+app.use(likesRouter);
 
 
 
