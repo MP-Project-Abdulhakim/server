@@ -62,6 +62,22 @@ const logIn = (req, res) => {
 };
 
 
+const deleteUser = (req, res) => {
+  const { id } = req.params;
+  userModel
+    .findByIdAndUpdate(id, { $set: { isDeleted: true } })
+    .then((result) => {
+      if (result) {
+        res.status(200).json("user removed");
+      } else {
+        res.status(200).json("user does not exist");
+      }
+    })
+    .catch((err) => {
+      res.status(200).json(err);
+    });
+};
 
 
-module.exports = { signUp, logIn };
+
+module.exports = { signUp, logIn, deleteUser };
