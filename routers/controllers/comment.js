@@ -26,7 +26,7 @@ const updateComment = (req, res) => {
   const { theComment } = req.body;
   const { id } = req.params;
   commentModel
-    .findByIdAndUpdate(id, { $set: { theComment: theComment } }, { new: true })
+    .findByIdAndUpdate(id, { $set: { theComment: theComment } },{new: true})
     .then((result) => {
       if (result) {
         res.status(200).json(result);
@@ -41,10 +41,25 @@ const updateComment = (req, res) => {
 
 
 
-//  deleteComment,
-//    
+const deleteComment = (req, res) => {
+  const { id } = req.params;
+
+  commentModel
+    .findByIdAndUpdate(id, { $set: { deleted: true } })
+    .exec()
+    .then((result) => {
+      res.status(200).json("Deleted");
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
+
+   
 //    getPostComment,
    module.exports = {
      createComment,
      updateComment,
+     deleteComment,
    };
