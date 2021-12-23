@@ -1,8 +1,17 @@
 const postModel = require("../../db/models/posts");
 
 const createPost = (req, res) => {
-  const { video, image, recipe, createdBy, deleted } = req.body;
-  const newPost = new postModel({ video, image, recipe, createdBy, deleted });
+  const { title, video, image, recipe, createdBy, deleted, ingridents } =
+    req.body;
+  const newPost = new postModel({
+    title,
+    video,
+    image,
+    recipe,
+    createdBy,
+    deleted,
+    ingridents,
+  });
   newPost
     .save()
     .then((result) => {
@@ -16,7 +25,6 @@ const createPost = (req, res) => {
 
 //not completed
 const getUserPosts = (req, res) => {
-  console.log(req);
   postModel
     .find({ deleted: false })
     .then((result) => {
@@ -26,6 +34,29 @@ const getUserPosts = (req, res) => {
       res.status(400).json(err);
     });
 };
-module.exports = { createPost, getUserPosts };
+
+
+const updatePost = (req, res) => {
+  const { title, recipe } = req.body;
+  const { id } = req.params;
+  postModel
+    .findByIdAndUpdate(id, { $set: { title, recipe } },{new: true})
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json(err);
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
+
+
+
+// getPosts, getPostById, deletePost
+module.exports = { createPost, getUserPosts, updatePost };
 
 
