@@ -22,7 +22,8 @@ app.use(userSchema);
 const postRouter = require("./routers/routs/posts");
 app.use(postRouter);
 
-
+const commentRouter = require("./routers/routs/comment");
+app.use(commentRouter);
 
 
 
