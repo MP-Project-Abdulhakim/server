@@ -1,16 +1,24 @@
 const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+
   video: {
     type: String,
   },
   image: {
     type: String,
   },
-  recipe: {
-    type: String,
-    required: true,
-  },
+  recipe: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
+  ingridents: [{ type: String, required: true }],
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
