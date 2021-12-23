@@ -54,9 +54,21 @@ const updatePost = (req, res) => {
 };
 
 
+const deletePost = (req, res) => {
+  const { id } = req.params;
+  postModel
+    .findByIdAndUpdate(id, { $set: { deleted: true } })
+    .exec()
+    .then((result) => {
+      res.status(200).json("Deleted");
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
 
 
-// getPosts, getPostById, deletePost
-module.exports = { createPost, getUserPosts, updatePost };
+// getPosts, getPostById
+module.exports = { createPost, getUserPosts, updatePost, deletePost };
 
 
