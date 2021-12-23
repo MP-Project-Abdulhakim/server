@@ -5,6 +5,16 @@ require("dotenv").config();
 const SECRETKEY = process.env.SECRETKEY;
 
 
+const getUsers = (req, res) => {
+  userModel
+    .find({ isDeleted: false })
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
 
 const signUp = async (req, res) => {
   const { email, password, username } = req.body;
@@ -79,5 +89,22 @@ const deleteUser = (req, res) => {
 };
 
 
+const updateUser = (req, res) => {
+  const { email } = req.body;
+  const { id } = req.params;
+  userModel
+    .findByIdAndUpdate(id, { $set: { email: email } })
+    .then((result) => {
+      if (result) {
+        res.status(200).json("updated");
+      } else {
+        res.status(404).json(err);
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
 
-module.exports = { signUp, logIn, deleteUser };
+
+module.exports = { signUp, logIn, deleteUser, getUsers, updateUser };
