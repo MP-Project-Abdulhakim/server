@@ -25,7 +25,7 @@ const createPost = (req, res) => {
 
 const getPosts = (req, res) => {
   postModel
-    .find({ deleted: false, user: req.id })
+    .find({ deleted: false})
     .then((result) => {
       res.status(200).json(result);
     })
@@ -39,7 +39,7 @@ const getPosts = (req, res) => {
 //not completed
 const getUserPosts = (req, res) => {
   postModel
-    .find({ deleted: false })
+    .find({ deleted: false, user: req.token.id })
     .then((result) => {
       res.status(200).json(result);
     })
