@@ -16,6 +16,9 @@ app.use(express.json());
 
 
 
+const roleRouter = require("./routers/routs/role");
+app.use( roleRouter);
+
 const userSchema = require("./routers/routs/user");
 app.use(userSchema);
 
