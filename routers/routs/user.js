@@ -10,7 +10,7 @@ const {
 } = require("./../controllers/user");
 
 
-userSchema.get("/users", getUsers);
+userSchema.get("/getusers", getUsers);
 userSchema.post("/signup", signUp);
 userSchema.post("/login", logIn);
 userSchema.delete("/delete/:id", deleteUser);

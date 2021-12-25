@@ -10,7 +10,7 @@ const {
 
 const commentRouter = express.Router();
 
-commentRouter.post("/create", createComment);
+commentRouter.post("/createComment", createComment);
 commentRouter.put("/updateComment/:id", updateComment);
 commentRouter.delete("/deleteComment/:id", deleteComment);
 
