@@ -1,9 +1,10 @@
 const userModel = require("./../../db/models/user");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-
 const SECRETKEY = process.env.SECRETKEY;
-
+const SALT = Number(process.env.SALT);
 
 const getUsers = (req, res) => {
   userModel
@@ -19,12 +20,15 @@ const getUsers = (req, res) => {
 const signUp = async (req, res) => {
   const { email, password, username } = req.body;
   const saveEmail = email.toLowerCase();
-  const savePass = password
+  
+
+const hashedPassword = await bcrypt.hash(password, SALT);
 
   const newUser = new userModel({
     email: saveEmail,
-    password: savePass,
+    password: hashedPassword,
     username,
+    role: "61c47c6f6dd112b240dd6f46",
   });
 
   newUser
@@ -41,21 +45,32 @@ const signUp = async (req, res) => {
 
 const logIn = (req, res) => {
   const { username, email, password } = req.body;
-  const saveEmail = email.toLowerCase();
+  // const saveEmail = email.toLowerCase();
 
   userModel
-    .findOne({ email: saveEmail })
+    // .findOne({ $or: [{ username }, { email: saveEmail }] })
+
+    .findOne({ $or: [{ username }, { email }] })
+
     .then(async (result) => {
       if (result) {
-        if (saveEmail == result.email || username === result.username) {
-          const savePass = (password, result.password);
-
-          if (savePass) {
+        if (email == result.email || username === result.username) {
+          const notHashedPassword = await bcrypt.compare(
+            password,
+            result.password
+          );
+          if (notHashedPassword) {
             const payload = {
               userId: result._id,
+              role: result.role,
             };
-            const token = (payload);
-            res.status(200).json({ result });
+            const options = {
+              expiresIn: "60m",
+            };
+
+            const token = jwt.sign(payload, SECRETKEY, options);
+
+            res.status(200).json({ result, token });
           } else {
             res.status(400).json("invalid email or password");
           }
