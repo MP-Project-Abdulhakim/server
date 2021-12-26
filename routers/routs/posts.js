@@ -7,9 +7,10 @@ const {
   getPosts,
 } = require("./../controllers/posts");
 
-
+ const authentication = require("./../middleWhere/authentication");
+ const authorization = require("./../middleWhere/authorization");
 const postRouter = express.Router();
-postRouter.post("/addPost", createPost);
+postRouter.post("/addPost",authentication, createPost);
 postRouter.get("/getUserPosts/:id", getUserPosts);
 postRouter.put("/updatePost/:id", updatePost);
 postRouter.delete("/deletePost/:id", deletePost);
