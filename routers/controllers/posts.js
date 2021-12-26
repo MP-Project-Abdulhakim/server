@@ -1,14 +1,14 @@
 const postModel = require("../../db/models/posts");
 
 const createPost = (req, res) => {
-  const { title, video, image, recipe, createdBy, deleted, ingridents } =
+  const { title, video, image, recipe, deleted, ingridents } =
     req.body;
   const newPost = new postModel({
     title,
     video,
     image,
     recipe,
-    createdBy,
+    createdBy: req.token.userId,
     deleted,
     ingridents,
   });
@@ -26,20 +26,21 @@ const createPost = (req, res) => {
 const getPosts = (req, res) => {
   postModel
     .find({ deleted: false})
-    .then((result) => {
-      res.status(200).json(result);
-    })
-    .catch((err) => {
-      res.status(400).json(err);
-    });
+      .then((result) => {
+        res.status(200).json(result);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
 };
 
 
 
-//not completed
+
 const getUserPosts = (req, res) => {
+  console.log(req);
   postModel
-    .find({ deleted: false, user: req.token.id })
+    .find({ deleted: false, createdBy: req.token.userId })
     .then((result) => {
       res.status(200).json(result);
     })
@@ -50,10 +51,14 @@ const getUserPosts = (req, res) => {
 
 
 const updatePost = (req, res) => {
-  const { title, recipe } = req.body;
+  const { title, video, image, recipe, ingridents } = req.body;
   const { id } = req.params;
   postModel
-    .findByIdAndUpdate(id, { $set: { title, recipe } },{new: true})
+    .findByIdAndUpdate(
+      id,
+      { $set: { title, video, image, recipe, ingridents } },
+      { new: true }
+    )
     .then((result) => {
       if (result) {
         res.status(200).json(result);

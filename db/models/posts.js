@@ -19,15 +19,17 @@ const postSchema = new mongoose.Schema({
     },
   ],
   ingridents: [{ type: String, required: true }],
+
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    
+  
   },
 
   deleted: {
     type: Boolean,
     default: false,
+    required: true,
   },
   like: [{ type: mongoose.Schema.Types.ObjectId, ref: "Like" }],
 });
