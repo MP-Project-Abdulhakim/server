@@ -13,7 +13,7 @@ const commentSchema = new mongoose.Schema({
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    
   },
 
   deleted: {

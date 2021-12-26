@@ -3,11 +3,12 @@ const commentModel = require("../../db/models/comment");
 
 const createComment = (req, res) => {
 
-  const { theComment, onPost, createdBy } = req.body;
+  const { theComment, onPost, deleted } = req.body;
   const comment = new commentModel({
     theComment,
-    createdBy,
+    createdBy: req.token.userId,
     onPost,
+    deleted,
   });
 
   comment

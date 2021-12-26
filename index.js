@@ -29,6 +29,9 @@ const likeRouter = require("./routers/routs/like");
 app.use(likeRouter);
 
 
+const followRouter = require("./routers/routs/follow");
+app.use(followRouter);
+
 
 
 
