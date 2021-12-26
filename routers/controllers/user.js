@@ -18,7 +18,7 @@ const getUsers = (req, res) => {
 };
 
 const signUp = async (req, res) => {
-  const { email, password, username } = req.body;
+  const { email, password, username, role, imgProfile } = req.body;
   const saveEmail = email.toLowerCase();
   
 
@@ -28,7 +28,8 @@ const hashedPassword = await bcrypt.hash(password, SALT);
     email: saveEmail,
     password: hashedPassword,
     username,
-    role: "61c47c6f6dd112b240dd6f46",
+    role,
+    imgProfile,
   });
 
   newUser
@@ -105,10 +106,10 @@ const deleteUser = (req, res) => {
 
 
 const updateUser = (req, res) => {
-  const { email } = req.body;
+  const { email, password, username, imgProfile } = req.body;
   const { id } = req.params;
   userModel
-    .findByIdAndUpdate(id, { $set: { email: email } })
+    .findByIdAndUpdate(id, { $set: { email, password, username, imgProfile } })
     .then((result) => {
       if (result) {
         res.status(200).json("updated");
