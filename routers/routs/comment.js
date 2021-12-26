@@ -10,9 +10,11 @@ const {
 
 const commentRouter = express.Router();
 
-commentRouter.post("/createComment", createComment);
-commentRouter.put("/updateComment/:id", updateComment);
-commentRouter.delete("/deleteComment/:id", deleteComment);
+ const authentication = require("./../middleWhere/authentication");
+
+commentRouter.post("/createComment", authentication,createComment);
+commentRouter.put("/updateComment/:id",authentication, updateComment);
+commentRouter.delete("/deleteComment/:id",authentication, deleteComment);
 
 
 

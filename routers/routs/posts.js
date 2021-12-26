@@ -8,7 +8,6 @@ const {
 } = require("./../controllers/posts");
 
  const authentication = require("./../middleWhere/authentication");
- const authorization = require("./../middleWhere/authorization");
 const postRouter = express.Router();
 
 postRouter.post("/addPost",authentication, createPost);
