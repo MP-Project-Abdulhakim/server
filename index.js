@@ -1,12 +1,9 @@
 const express = require("express");
 require("dotenv").config();
 
-
 const db = require("./db/db");
 
-
 const app = express();
-
 
 app.use(express.json());
 
@@ -28,8 +25,9 @@ app.use(postRouter);
 const commentRouter = require("./routers/routs/comment");
 app.use(commentRouter);
 
-const likesRouter = require("./routers/routs/like");
-app.use(likesRouter);
+const likeRouter = require("./routers/routs/like");
+app.use(likeRouter);
+
 
 
 

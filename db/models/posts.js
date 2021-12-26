@@ -22,14 +22,14 @@ const postSchema = new mongoose.Schema({
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    
   },
 
   deleted: {
     type: Boolean,
     default: false,
   },
-  likeId: [{ type: mongoose.Schema.Types.ObjectId, ref: "Like" }],
+  like: [{ type: mongoose.Schema.Types.ObjectId, ref: "Like" }],
 });
 
 const postModel = mongoose.model("Post", postSchema);
