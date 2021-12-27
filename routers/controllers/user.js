@@ -1,4 +1,5 @@
 const userModel = require("./../../db/models/user");
+const followModel = require("../../db/models/follow");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -33,9 +34,15 @@ const hashedPassword = await bcrypt.hash(password, SALT);
     imgProfile,
   });
 
+  
+
   newUser
     .save()
     .then((result) => {
+      const follow = new followModel({
+       username: result._id,
+       });
+       follow.save()
       res.status(201).json(result);
     })
     .catch((err) => {
