@@ -6,7 +6,7 @@ const addLike = (req, res) => {
   const { postId } = req.body;
   const newlike = new likeModel({
     postId: postId,
-    userId: req.token.id,
+    userId: req.token.userId,
   });
   newlike.save().then((result) => {
     postModel
