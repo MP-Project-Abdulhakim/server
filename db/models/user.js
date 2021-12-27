@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema({
     ref: "Role",
     default: "61c817269c72cd8cbad62eff",
   },
-  follow: [{ type: mongoose.Schema.Types.ObjectId, ref: "Follow" }],
 });
 
 module.exports = mongoose.model("User", userSchema);

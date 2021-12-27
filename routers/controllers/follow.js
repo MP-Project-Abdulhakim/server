@@ -3,34 +3,50 @@ const userModel = require("../../db/models/user");
 
 const addfollow = (req, res) => {
   const { following } = req.body;
-  const newfollow = new followModel({
-    following: following,
-    followedBy: req.token.userId,
-  });
-  newfollow.save().then((result) => {
-    userModel
-      .findByIdAndUpdate(following, { $push: { follow: result._id } })
-      .then((result) => {
-        res.status(201).json(result);
-      })
-      .catch((err) => {
-        res.status(400).json(err);
-      });
-  });
-};
-
-const deletefollow = (req, res) => {
-  const { id } = req.body;
   followModel
-    .findByIdAndRemove({ _id: id })
-    .exec()
+    .findOneAndUpdate(
+      { username: req.token.userId },
+      { $addToSet: { following: following } },
+      { upsert: true }
+    )
     .then((result) => {
-      console.log(result);
-      res.status(200).json("unfollow");
+      followModel
+        .findOneAndUpdate(
+          { username: following },
+          { $addToSet: { followedBy: req.token.userId } },
+          { upsert: true }
+        )
+        .then((result) => {
+          res.status(201).json('doneeeee');
+        });
     })
     .catch((err) => {
       res.status(400).json(err);
     });
+};
+
+const deletefollow = (req, res) => {
+   const { following } = req.body;
+   followModel
+     .findOneAndUpdate(
+       { username: req.token.userId },
+       { $pull: { following: following } },
+       { upsert: true }
+     )
+     .then((result) => {
+       followModel
+         .findOneAndUpdate(
+           { username: following },
+           { $pull: { followedBy: req.token.userId } },
+           { upsert: true }
+         )
+         .then((result) => {
+           res.status(201).json("doneeeee deleted");
+         });
+     })
+     .catch((err) => {
+       res.status(400).json(err);
+     });
 };
 
 module.exports = { addfollow, deletefollow };
