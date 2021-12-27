@@ -9,6 +9,7 @@ const SALT = Number(process.env.SALT);
 const getUsers = (req, res) => {
   userModel
     .find({ isDeleted: false })
+    // .populate("followedBy")
     .then((result) => {
       res.status(200).json(result);
     })
@@ -66,7 +67,7 @@ const logIn = (req, res) => {
               role: result.role,
             };
             const options = {
-              expiresIn: "60m",
+              expiresIn: "60000000000000000000m",
             };
 
             const token = jwt.sign(payload, SECRETKEY, options);
