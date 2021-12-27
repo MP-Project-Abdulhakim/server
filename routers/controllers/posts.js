@@ -78,7 +78,7 @@ const deletePost = (req, res) => {
     .findByIdAndUpdate(id, { $set: { deleted: true } })
     .exec()
     .then((result) => {
-      res.status(200).json("Deleted");
+      res.status(200).json(result);
     })
     .catch((err) => {
       res.status(400).json(err);
