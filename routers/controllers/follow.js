@@ -1,17 +1,11 @@
 const followModel = require("../../db/models/follow");
 const userModel = require("../../db/models/user");
 
-
-
-
-
 const addfollow = (req, res) => {
-
   const { following } = req.body;
-  
   const newfollow = new followModel({
     following: following,
-    followedBy: req.token.id,
+    followedBy: req.token.userId,
   });
   newfollow.save().then((result) => {
     userModel
@@ -40,7 +34,3 @@ const deletefollow = (req, res) => {
 };
 
 module.exports = { addfollow, deletefollow };
-
-
-
-
