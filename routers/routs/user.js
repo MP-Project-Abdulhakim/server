@@ -7,6 +7,9 @@ const {
   deleteUser,
   getUsers,
   updateUser,
+  verifyAccount,
+  checkEmail,
+  resetPassword,
 } = require("./../controllers/user");
 
  const authentication = require("./../middleWhere/authentication");
@@ -17,8 +20,9 @@ userSchema.post("/signup", signUp);
 userSchema.post("/login", logIn);
 userSchema.delete("/deleteUser/:id", authentication, authorization, deleteUser);
 userSchema.post("/updat/:id",authentication, updateUser);
-
-
+userSchema.post("/active", verifyAccount);
+userSchema.post("/check", checkEmail);
+userSchema.post("/reset", resetPassword);
 
 
 module.exports = userSchema;
