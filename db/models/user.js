@@ -11,6 +11,9 @@ const userSchema = new mongoose.Schema({
     ref: "Role",
     default: "61c817269c72cd8cbad62eff",
   },
+  isActive: { type: Boolean, default: false },
+  activeCode: { type: String },
+  passwordCode: { type: String },
 });
 
 module.exports = mongoose.model("User", userSchema);
