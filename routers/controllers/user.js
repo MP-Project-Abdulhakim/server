@@ -2,7 +2,6 @@ const userModel = require("./../../db/models/user");
 const followModel = require("../../db/models/follow");
 const nodemailer = require("nodemailer");
 
-
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -31,7 +30,7 @@ const getUsers = (req, res) => {
 
 const signUp = async (req, res) => {
   const { email, password, username, role, imgProfile } = req.body;
-   const nemail = email.toLowerCase();
+  const nemail = email.toLowerCase();
   const hashpwd = await bcrypt.hash(password, SALT);
   const characters = "0123456789";
   let activeCode = "";
@@ -72,7 +71,6 @@ const signUp = async (req, res) => {
 };
 
 //   const saveEmail = email.toLowerCase();
-  
 
 // const hashedPassword = await bcrypt.hash(password, SALT);
 
@@ -83,8 +81,6 @@ const signUp = async (req, res) => {
 //     role,
 //     imgProfile,
 //   });
-
-  
 
 //   newUser
 //     .save()
@@ -99,7 +95,6 @@ const signUp = async (req, res) => {
 //       res.status(400).json(err);
 //     });
 // };
-
 
 const verifyAccount = async (req, res) => {
   const { id, code } = req.body;
@@ -118,6 +113,57 @@ const verifyAccount = async (req, res) => {
   }
 };
 
+// const logIn = (req, res) => {
+//   const { username, email, password } = req.body;
+//   // const saveEmail = email.toLowerCase();
+
+//   userModel
+//     // .findOne({ $or: [{ username }, { email: saveEmail }] })
+
+//     .findOne({ $or: [{ username }, { email }] })
+
+//     .then(async (result) => {
+//       if (result) {
+//         console.log(result);
+//         if (
+          
+//           email == result.email || username == result.username && result.isActive == true
+//         ) {
+//           const notHashedPassword = await bcrypt.compare(
+//             password,
+//             result.password
+//           );
+//           if (notHashedPassword) {
+//             const payload = {
+//               userId: result._id,
+//               role: result.role,
+//             };
+//             const options = {
+//               expiresIn: "60000000000000000000m",
+//             };
+
+//             const token = jwt.sign(payload, SECRETKEY, options);
+
+//             res.status(200).json({ result, token });
+//           } else {
+//             res
+//               .status(400)
+//               .json("invalid email or password or account not active1");
+//           }
+//         } else {
+//           res
+//             .status(400)
+//             .json("invalid email or password or account not active");
+//         }
+//       } else {
+//         res.status(404).json("not found");
+//       }
+//     })
+//     .catch((err) => {
+//       res.status(400).json(err);
+//     });
+// };
+
 
 const logIn = (req, res) => {
   const { username, email, password } = req.body;
@@ -130,13 +176,16 @@ const logIn = (req, res) => {
 
     .then(async (result) => {
       if (result) {
-        if (email == result.email && username === result.username && result.isActive == true) {
+        if (
+          email == result.email ||
+          username === result.username &&
+          result.isActive == true
+        ) {
           const notHashedPassword = await bcrypt.compare(
             password,
             result.password
           );
           if (notHashedPassword) {
-            
             const payload = {
               userId: result._id,
               role: result.role,
@@ -149,7 +198,9 @@ const logIn = (req, res) => {
 
             res.status(200).json({ result, token });
           } else {
-            res.status(400).json("invalid email or password or account not active");
+            res
+              .status(400)
+              .json("invalid email or password or account not active");
           }
         } else {
           res
@@ -201,8 +252,6 @@ const checkEmail = async (req, res) => {
   }
 };
 
-
-
 const resetPassword = async (req, res) => {
   const { id, code, password } = req.body;
   const user = await userModel.findOne({ _id: id });
@@ -225,7 +274,6 @@ const resetPassword = async (req, res) => {
   }
 };
 
-
 const deleteUser = (req, res) => {
   const { id } = req.params;
   userModel
@@ -241,7 +289,6 @@ const deleteUser = (req, res) => {
       res.status(200).json(err);
     });
 };
-
 
 const updateUser = (req, res) => {
   const { email, password, username, imgProfile } = req.body;
@@ -259,7 +306,6 @@ const updateUser = (req, res) => {
       res.status(400).json(err);
     });
 };
-
 
 module.exports = {
   signUp,
