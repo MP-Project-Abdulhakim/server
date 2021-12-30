@@ -1,14 +1,12 @@
 const commentModel = require("../../db/models/comment");
 
-
 const createComment = (req, res) => {
-
-  const { theComment, onPost, deleted } = req.body;
+  const { id } = req.params;
+  const { theComment } = req.body;
   const comment = new commentModel({
     theComment,
     createdBy: req.token.userId,
-    onPost,
-    deleted,
+    onPost: id,
   });
 
   comment
@@ -21,13 +19,27 @@ const createComment = (req, res) => {
     });
 };
 
-
+const getCommentsForPost = (req, res) => {
+  
+  const { id } = req.params; // post id
+  
+  commentModel
+    .find({ onPost: id, deleted: false })
+    .populate("createdBy onPost")
+    .exec()
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
 
 const updateComment = (req, res) => {
   const { theComment } = req.body;
   const { id } = req.params;
   commentModel
-    .findByIdAndUpdate(id, { $set: { theComment: theComment } },{new: true})
+    .findByIdAndUpdate(id, { $set: { theComment: theComment } }, { new: true })
     .then((result) => {
       if (result) {
         res.status(200).json(result);
@@ -39,8 +51,6 @@ const updateComment = (req, res) => {
       res.status(400).json(err);
     });
 };
-
-
 
 const deleteComment = (req, res) => {
   const { id } = req.params;
@@ -56,11 +66,9 @@ const deleteComment = (req, res) => {
     });
 };
 
-
-   
-
-   module.exports = {
-     createComment,
-     updateComment,
-     deleteComment,
-   };
+module.exports = {
+  createComment,
+  updateComment,
+  deleteComment,
+  getCommentsForPost,
+};

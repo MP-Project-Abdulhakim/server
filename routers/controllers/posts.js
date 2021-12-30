@@ -35,8 +35,6 @@ const getPosts = (req, res) => {
 };
 
 
-
-
 const getUserPosts = (req, res) => {
   console.log(req);
   postModel
