@@ -22,17 +22,34 @@ const addLike = (req, res) => {
 
 
 const deleteLike = (req, res) => {
-  const { id } = req.body;
+  const { postId } = req.body;
   likeModel
-    .findByIdAndRemove({ _id: id })
+    .findOneAndRemove({ postId: postId })
     .exec()
     .then((result) => {
-      console.log(result);
-      res.status(200).json("Dislike");
+      postModel
+        .findByIdAndUpdate(postId, { $pull: { like: result._id } })
+        .then((result) => {
+          res.status(201).json("deleted");
+        });
     })
     .catch((err) => {
       res.status(400).json(err);
     });
 };
 
-module.exports = { addLike, deleteLike };
+
+const getLiked = (req, res) => {
+  const { userId } = req.body;
+  likeModel
+    .find({})
+    .populate("postId")
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
+module.exports = { addLike, deleteLike, getLiked };

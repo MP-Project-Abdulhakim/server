@@ -60,7 +60,7 @@ const signUp = async (req, res) => {
             <h2> Hi ${nemail}</h2> 
             <h4> Code: ${activeCode}</h4> 
             <p> Thank you for registeration , kindly confirm your email by insert code on following link</p>
-            <a href="https://sultan.com/verify_account/${result._id}> click here</a>`,
+            <a href="http://localhost:3000/active/${result._id}> click here</a>`,
         })
         .catch((err) => console.log(err));
       res.status(201).json(result);
@@ -166,19 +166,22 @@ const verifyAccount = async (req, res) => {
 
 
 const logIn = (req, res) => {
-  const { username, email, password } = req.body;
-  // const saveEmail = email.toLowerCase();
+  const { usernameOrEmail, password } = req.body;
+  const saveEmail = usernameOrEmail.toLowerCase();
 
   userModel
-    // .findOne({ $or: [{ username }, { email: saveEmail }] })
+    .findOne({
+      $or: [{ username: usernameOrEmail }, { email: saveEmail }],
+    })
 
-    .findOne({ $or: [{ username }, { email }] })
+    // .findOne({ $or: [ { email }] })
 
     .then(async (result) => {
+      console.log(result);
       if (result) {
         if (
-          email == result.email ||
-          username === result.username &&
+          (usernameOrEmail == result.email ||
+            usernameOrEmail === result.username) &&
           result.isActive == true
         ) {
           const notHashedPassword = await bcrypt.compare(
