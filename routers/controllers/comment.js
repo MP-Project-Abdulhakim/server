@@ -1,23 +1,47 @@
 const commentModel = require("../../db/models/comment");
+const postModel = require("../../db/models/posts")
+
+// const createComment = (req, res) => {
+//   const { id } = req.params;
+//   const { theComment } = req.body;
+//   const comment = new commentModel({
+//     theComment,
+//     createdBy: req.token.userId,
+//     onPost: id,
+//   });
+
+//   comment
+//     .save()
+//     .then((result) => {
+//       res.json(result);
+//     })
+//     .catch((err) => {
+//       res.send(err);
+//     });
+// };
+
+
 
 const createComment = (req, res) => {
-  const { id } = req.params;
-  const { theComment } = req.body;
-  const comment = new commentModel({
-    theComment,
-    createdBy: req.token.userId,
-    onPost: id,
-  });
+  const { theComment, onPost } = req.body;
 
-  comment
-    .save()
-    .then((result) => {
-      res.json(result);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
+  const newcomment = new commentModel({
+    theComment,
+    onPost,
+    createdBy: req.token.userId,
+  });
+  newcomment.save().then((result) => {
+    postModel
+      .findByIdAndUpdate(onPost, { $push: { comment: result._id } })
+      .then((result) => {
+        res.status(201).json(result);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  });
 };
+
 
 const getCommentsForPost = (req, res) => {
   
@@ -25,7 +49,6 @@ const getCommentsForPost = (req, res) => {
   
   commentModel
     .find({ onPost: id, deleted: false })
-    .populate("createdBy onPost")
     .exec()
     .then((result) => {
       res.status(200).json(result);

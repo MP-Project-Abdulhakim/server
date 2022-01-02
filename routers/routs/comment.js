@@ -11,9 +11,9 @@ const commentRouter = express.Router();
 
 const authentication = require("./../middleWhere/authentication");
 
-commentRouter.post("/createComment/:id", authentication, createComment);
+commentRouter.post("/createComment", authentication, createComment);
 commentRouter.put("/updateComment/:id", authentication, updateComment);
 commentRouter.delete("/deleteComment/:id", authentication, deleteComment);
-commentRouter.get("/getComments/:id", authentication, getCommentsForPost);
+commentRouter.get("/getComments/:id", getCommentsForPost);
 
 module.exports = commentRouter;

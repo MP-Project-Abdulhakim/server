@@ -23,7 +23,6 @@ const postSchema = new mongoose.Schema({
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-  
   },
 
   deleted: {
@@ -32,6 +31,7 @@ const postSchema = new mongoose.Schema({
     required: true,
   },
   like: [{ type: mongoose.Schema.Types.ObjectId, ref: "Like" }],
+  comment: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 const postModel = mongoose.model("Post", postSchema);

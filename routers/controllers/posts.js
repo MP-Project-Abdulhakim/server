@@ -1,9 +1,9 @@
-const postModel = require("../../db/models/posts");
+const postModelss = require("../../db/models/posts");
 
 const createPost = (req, res) => {
   const { title, video, image, recipe, deleted, ingridents } =
     req.body;
-  const newPost = new postModel({
+  const newPost = new postModelss({
     title,
     video,
     image,
@@ -24,20 +24,21 @@ const createPost = (req, res) => {
 
 
 const getPosts = (req, res) => {
-  postModel
-    .find({ deleted: false})
-      .then((result) => {
-        res.status(200).json(result);
-      })
-      .catch((err) => {
-        res.status(400).json(err);
-      });
+  postModelss
+    .find({ deleted: false })
+    .populate("comment like")
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 };
 
 
 const getUserPosts = (req, res) => {
   console.log(req);
-  postModel
+  postModelss
     .find({ deleted: false, createdBy: req.token.userId })
     .then((result) => {
       res.status(200).json(result);
@@ -51,7 +52,7 @@ const getUserPosts = (req, res) => {
 const updatePost = (req, res) => {
   const { title, video, image, recipe, ingridents } = req.body;
   const { id } = req.params;
-  postModel
+  postModelss
     .findByIdAndUpdate(
       id,
       { $set: { title, video, image, recipe, ingridents } },
@@ -72,8 +73,22 @@ const updatePost = (req, res) => {
 
 const deletePost = (req, res) => {
   const { id } = req.params;
-  postModel
+  postModelss
     .findByIdAndUpdate(id, { $set: { deleted: true } })
+    .exec()
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
+const getPostById = (req, res) => {
+  const { id } = req.params; // post id
+
+  postModelss
+    .find({ _id: id, deleted: false })
     .exec()
     .then((result) => {
       res.status(200).json(result);
@@ -85,6 +100,13 @@ const deletePost = (req, res) => {
 
 
 // getPostById
-module.exports = { createPost, getUserPosts, updatePost, deletePost, getPosts };
+module.exports = {
+  createPost,
+  getUserPosts,
+  updatePost,
+  deletePost,
+  getPosts,
+  getPostById,
+};
 
 
