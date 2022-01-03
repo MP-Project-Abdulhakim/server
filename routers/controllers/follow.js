@@ -1,5 +1,21 @@
 const followModel = require("../../db/models/follow");
 
+
+
+const getfollowed = (req, res) => {
+  const { username } = req.body;
+  followModel
+    .find({ username })
+    .populate("following")
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+
+  }
+
 const addfollow = (req, res) => {
   const { following } = req.body;
   followModel
@@ -46,6 +62,10 @@ const deletefollow = (req, res) => {
     .catch((err) => {
       res.status(400).json(err);
     });
+
+
+    
 };
 
-module.exports = { addfollow, deletefollow };
+
+module.exports = { addfollow, deletefollow, getfollowed };
