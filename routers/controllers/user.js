@@ -70,31 +70,6 @@ const signUp = async (req, res) => {
     });
 };
 
-//   const saveEmail = email.toLowerCase();
-
-// const hashedPassword = await bcrypt.hash(password, SALT);
-
-//   const newUser = new userModel({
-//     email: saveEmail,
-//     password: hashedPassword,
-//     username,
-//     role,
-//     imgProfile,
-//   });
-
-//   newUser
-//     .save()
-//     .then((result) => {
-//       const follow = new followModel({
-//        username: result._id,
-//        });
-//        follow.save()
-//       res.status(201).json(result);
-//     })
-//     .catch((err) => {
-//       res.status(400).json(err);
-//     });
-// };
 
 const verifyAccount = async (req, res) => {
   const { id, code } = req.body;
@@ -113,57 +88,6 @@ const verifyAccount = async (req, res) => {
   }
 };
 
-// const logIn = (req, res) => {
-//   const { username, email, password } = req.body;
-//   // const saveEmail = email.toLowerCase();
-
-//   userModel
-//     // .findOne({ $or: [{ username }, { email: saveEmail }] })
-
-//     .findOne({ $or: [{ username }, { email }] })
-
-//     .then(async (result) => {
-//       if (result) {
-//         console.log(result);
-//         if (
-          
-//           email == result.email || username == result.username && result.isActive == true
-//         ) {
-//           const notHashedPassword = await bcrypt.compare(
-//             password,
-//             result.password
-//           );
-//           if (notHashedPassword) {
-//             const payload = {
-//               userId: result._id,
-//               role: result.role,
-//             };
-//             const options = {
-//               expiresIn: "60000000000000000000m",
-//             };
-
-//             const token = jwt.sign(payload, SECRETKEY, options);
-
-//             res.status(200).json({ result, token });
-//           } else {
-//             res
-//               .status(400)
-//               .json("invalid email or password or account not active1");
-//           }
-//         } else {
-//           res
-//             .status(400)
-//             .json("invalid email or password or account not active");
-//         }
-//       } else {
-//         res.status(404).json("not found");
-//       }
-//     })
-//     .catch((err) => {
-//       res.status(400).json(err);
-//     });
-// };
-
 
 const logIn = (req, res) => {
   const { usernameOrEmail, password } = req.body;
@@ -174,7 +98,7 @@ const logIn = (req, res) => {
       $or: [{ username: usernameOrEmail }, { email: saveEmail }],
     })
 
-    // .findOne({ $or: [ { email }] })
+    
 
     .then(async (result) => {
       console.log(result);
