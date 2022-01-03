@@ -26,7 +26,7 @@ const createPost = (req, res) => {
 const getPosts = (req, res) => {
   postModelss
     .find({ deleted: false })
-    .populate("comment like")
+    .populate("comment like createdBy")
     .then((result) => {
       res.status(200).json(result);
     })
