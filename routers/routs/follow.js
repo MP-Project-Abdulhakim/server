@@ -9,8 +9,8 @@ const authentication = require("./../middleWhere/authentication");
 
 const followRouter = express.Router();
 
-followRouter.post("/getfollowed", authentication, getfollowed);
+followRouter.get("/getfollowed", getfollowed);
 followRouter.post("/follow", authentication, addfollow);
-followRouter.delete("/deletefollow", authentication, deletefollow);
+followRouter.put("/deletefollow", authentication, deletefollow);
 
 module.exports = followRouter;

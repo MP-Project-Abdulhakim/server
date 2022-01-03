@@ -19,7 +19,7 @@ const SALT = Number(process.env.SALT);
 const getUsers = (req, res) => {
   userModel
     .find({ isDeleted: false })
-    // .populate("followedBy")
+    .populate("following")
     .then((result) => {
       res.status(200).json(result);
     })
