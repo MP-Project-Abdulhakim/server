@@ -1,11 +1,10 @@
 const postModelss = require("../../db/models/posts");
 
 const createPost = (req, res) => {
-  const { title, video, image, recipe, deleted, ingridents } =
+  const { title, image, recipe, deleted, ingridents } =
     req.body;
   const newPost = new postModelss({
     title,
-    video,
     image,
     recipe,
     createdBy: req.token.userId,

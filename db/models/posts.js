@@ -9,9 +9,9 @@ const postSchema = new mongoose.Schema({
   video: {
     type: String,
   },
-  image: {
+  image: [{
     type: String,
-  },
+  }],
   recipe: [
     {
       type: String,

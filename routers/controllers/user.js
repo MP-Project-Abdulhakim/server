@@ -69,7 +69,6 @@ const signUp = async (req, res) => {
     });
 };
 
-
 const verifyAccount = async (req, res) => {
   const { id, code } = req.body;
   const user = await userModel.findOne({ _id: id });
@@ -87,7 +86,6 @@ const verifyAccount = async (req, res) => {
   }
 };
 
-
 const logIn = (req, res) => {
   const { usernameOrEmail, password } = req.body;
   const saveEmail = usernameOrEmail.toLowerCase();
@@ -96,8 +94,6 @@ const logIn = (req, res) => {
     .findOne({
       $or: [{ username: usernameOrEmail }, { email: saveEmail }],
     })
-
-    
 
     .then(async (result) => {
       console.log(result);
@@ -141,7 +137,6 @@ const logIn = (req, res) => {
       res.status(400).json(err);
     });
 };
-
 
 const checkEmail = async (req, res) => {
   const { email } = req.body;
@@ -219,12 +214,19 @@ const deleteUser = (req, res) => {
 const updateUser = (req, res) => {
   const { email, password, username, imgProfile } = req.body;
   const { id } = req.params;
+  console.log(email, password, username, imgProfile, id);
   userModel
-    .findByIdAndUpdate(id, { $set: { email, password, username, imgProfile } })
+    .findOneAndUpdate(
+      { _id: id },
+      { $set: { email, password, username, imgProfile } },
+      { upsert: true, new: true }
+    )
     .then((result) => {
       if (result) {
-        res.status(200).json("updated");
+        console.log(result);
+        res.status(200).json(result);
       } else {
+        console.log(err);
         res.status(404).json(err);
       }
     })
