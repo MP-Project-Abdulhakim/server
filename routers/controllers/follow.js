@@ -5,7 +5,7 @@ const followModel = require("../../db/models/follow");
 const getfollowed = (req, res) => {
   followModel
     .find({})
-    .populate("following following")
+    .populate("following")
     .then((result) => {
       res.status(200).json(result);
     })

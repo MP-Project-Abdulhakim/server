@@ -19,7 +19,7 @@ userSchema.get("/getusers", getUsers);
 userSchema.post("/signup", signUp);
 userSchema.post("/login", logIn);
 userSchema.delete("/deleteUser/:id", authentication, authorization, deleteUser);
-userSchema.post("/updat/:id",authentication, updateUser);
+userSchema.put("/updat/:id",authentication, updateUser);
 userSchema.post("/active", verifyAccount);
 userSchema.post("/check", checkEmail);
 userSchema.post("/reset", resetPassword);
