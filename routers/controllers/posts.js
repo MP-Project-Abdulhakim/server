@@ -83,6 +83,7 @@ const deletePost = (req, res) => {
     });
 };
 
+
 const getPostById = (req, res) => {
   const { id } = req.params; // post id
 

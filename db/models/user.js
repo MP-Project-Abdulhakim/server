@@ -4,7 +4,9 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  imgProfile: { type: String },
+  imgProfile: { type: String ,
+  default:
+    "https://previews.123rf.com/images/carbouval/carbouval0801/carbouval080100076/2370127-chef-in-profile-tasting.jpg"},
   isDeleted: { type: Boolean, default: false },
   role: {
     type: mongoose.Schema.Types.ObjectId,
