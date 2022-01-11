@@ -214,6 +214,7 @@ const deleteUser = (req, res) => {
 const updateUser = (req, res) => {
   const { email, password, username, imgProfile } = req.body;
   const { id } = req.params;
+  
   console.log(email, password, username, imgProfile, id);
   userModel
     .findOneAndUpdate(
@@ -222,13 +223,8 @@ const updateUser = (req, res) => {
       { upsert: true, new: true }
     )
     .then((result) => {
-      if (result) {
-        console.log(result);
-        res.status(200).json(result);
-      } else {
-        console.log(err);
-        res.status(404).json(err);
-      }
+      console.log(result);
+      res.status(200).json(result);
     })
     .catch((err) => {
       res.status(400).json(err);
