@@ -160,7 +160,7 @@ const checkEmail = async (req, res) => {
             html: `<h1>Reset your Password</h1>
         <h2> Hello ${result.username}</h2>
         <h4>Code:${passwordCode}</h4>
-        <a href=http://localhost:3000/reset2/${result._id}> Click here</a>`,
+        <a href=https://wasfah-back.herokuapp.com/reset2/${result._id}> Click here</a>`,
           })
           .catch((err) => console.log(err));
         res.status(200).json(result);
