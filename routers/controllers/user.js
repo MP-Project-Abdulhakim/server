@@ -59,7 +59,7 @@ const signUp = async (req, res) => {
             <h2> Hi ${nemail}</h2> 
             <h4> Code: ${activeCode}</h4> 
             <p> Thank you for registeration , kindly confirm your email by insert code on following link</p>
-            <a href="http://localhost:3000/active/${result._id}> click here</a>`,
+            <a href="https://wasfah-back.herokuapp.com/${result._id}> click here</a>`,
         })
         .catch((err) => console.log(err));
       res.status(201).json(result);
