@@ -160,7 +160,7 @@ const checkEmail = async (req, res) => {
             html: `<h1>Reset your Password</h1>
         <h2> Hello ${result.username}</h2>
         <h4>Code:${passwordCode}</h4>
-        <a href="https://wasfah-fiwhk66s8-wasfah.vercel.app/check/${result._id}"> Click here</a>`,
+        <a href="https://wasfah-fiwhk66s8-wasfah.vercel.app/res/${result._id}"> Click here</a>`,
           })
           .catch((err) => console.log(err));
         res.status(200).json(result);
