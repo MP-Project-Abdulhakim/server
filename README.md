@@ -22,7 +22,7 @@ Creating Community WebSite of chefs and users,
 ---
 #### server side url https://github.com/MP-Project-Abdulhakim/client
 #### presentation slides http://www.abdulhakim.com
-#### project deployed there https://wasfah-wasfah.vercel.app/
+#### project deployed there https://wasfah.vercel.app/
 #### Trello link https://trello.com/b/qhLIrfnX/mp-project-abdulhakim
 
 ---
